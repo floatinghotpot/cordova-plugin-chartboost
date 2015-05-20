@@ -6,40 +6,56 @@ Step 1: Create Ad Unit Id for your game, then write it in your javascript code.
 
 ```javascript
 // select the right Ad Id according to platform
-    var adunits = {};
-    if( /(android)/i.test(navigator.userAgent) ) { // for android
-		adunits = {
-			banner: 'appid/appkey', 
-			interstitial: 'appid/appkey', 
-        };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-		adunits = {
-			banner: 'appid/appkey', 
-			interstitial: 'appid/appkey',
+	var adunits = {};
+	if( /(android)/i.test(navigator.userAgent) ) { 
+		adunits = { // for Android
+            appId: '543f9b02c26ee436f622d806',
+            appKey: '5091e071a0e429129ea7dc5b69fe005296de40ef'
 		};
-    } else { // for windows phone
-		console.log('windows phone not supported');
+	} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+		adunits = { // for iOS
+            appId: '543f9ac9c26ee436e7133794',
+            appKey: '6d1c2e4a5d1225825a7472aa52d0f45e4757de39'
+		};
+	} else {
+        alert('windows phone not supported');
+	}
+
+    function initApp() {
+		if (! Chartboost ) { alert( 'Chartboost plugin not ready' ); return; }
+
+        Chartboost.setOptions( {
+                 appId: adunits.appId,
+                 appKey: adunits.appKey
+        } );
+
+        registerAdEvents();
     }
+
 ```
 
-Step 2: Want a banner? single line of javascript code.
+Step 2: Want interstitial Ad? single line of javascript code.
 
 ```javascript
-// it will display smart banner at top center, using the default options
-if(Chartboost) Chartboost.createBanner( {
-	adId: adunits.banner, 
-	position: Chartboost.AD_POSITION.TOP_CENTER, 
+if(Chartboost) Chartboost.prepareInterstitial( {
+	adId: 'interstitial/Home Screen', 
 	autoShow: true } );
 ```
 
-Step 3: Want full screen Ad? Easy, 2 lines of code. 
+Step 3: Want show video? Easy, single line of code. 
 
 ```javascript
-// preppare and load ad resource in background, e.g. at begining of game level
-if(Chartboost) Chartboost.prepareInterstitial( {adId:adunits.interstitial, autoShow:false} );
+if(Chartboost) Chartboost.prepareInterstitial( {
+	adId: 'video/Home Screen', 
+	autoShow: true } );
+```
 
-// show the interstitial later, e.g. at end of game level
-if(Chartboost) Chartboost.showInterstitial();
+Step 4: Want show more apps? Easy, single line of code. 
+
+```javascript
+if(Chartboost) Chartboost.prepareInterstitial( {
+	adId: 'moreapps/Home Screen', 
+	autoShow: true } );
 ```
 
 ### Features ###
