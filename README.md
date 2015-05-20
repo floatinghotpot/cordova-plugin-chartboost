@@ -120,19 +120,12 @@ Plugin ID: com.rjfun.cordova.chartboost
 
 Methods:
 ```javascript
-// use banner
-createBanner(adId/options, success, fail);
-removeBanner();
-showBanner(position);
-showBannerAtXY(x, y);
-hideBanner();
+// set default value for other methods
+setOptions(options, success, fail);
 
 // use interstitial
 prepareInterstitial(adId/options, success, fail);
 showInterstitial();
-
-// set default value for other methods
-setOptions(options, success, fail);
 ```
 
 ## Screenshots ##
