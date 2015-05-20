@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+<title>Hello World</title>
+<script type="text/javascript" src="cordova.js"></script>
+<style type="text/css">
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: gray;
+	color: white;
+}
+
+div#fullpage {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0px solid red;
+	text-align: center;
+	vertical-align: middle;
+}
+
+button {
+	font-size: 18px;
+}
+</style>
+</head>
+<body onload="onLoad()" onresize="onResize()">
+<script>
+    function onLoad() {
+        if(( /(ipad|iphone|ipod|android|windows phone)/i.test(navigator.userAgent) )) {
+            document.addEventListener('deviceready', initApp, false);
+        } else {
+            initApp();
+        }
+    }
+
+	var adunits = {};
+	if( /(android)/i.test(navigator.userAgent) ) { 
+		adunits = { // for Android
+            appId: '543f9b02c26ee436f622d806',
+            appKey: '5091e071a0e429129ea7dc5b69fe005296de40ef'
+		};
+	} else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+		adunits = { // for iOS
+            appId: '543f9ac9c26ee436e7133794',
+            appKey: '6d1c2e4a5d1225825a7472aa52d0f45e4757de39'
+		};
+	} else {
+        console.log();
+	}
+        
+    function initApp() {
+		if (! Chartboost ) { alert( 'Chartboost plugin not ready' ); return; }
+
+        Chartboost.setOptions( {
+                 isTesting: true,
+                 appId: adunits.appId,
+                 appKey: adunits.appKey
+        } );
+
+        registerAdEvents();
+    }
+
+    // optional, in case respond to events or handle error
+    function registerAdEvents() {
+        // new events, with variable to differentiate: adNetwork, adType, adEvent
+        document.addEventListener('onAdFailLoad', function(data){ 
+        	alert('error: ' + data.error + 
+        			', reason: ' + data.reason + 
+        			', adNetwork:' + data.adNetwork + 
+        			', adType:' + data.adType + 
+        			', adEvent:' + data.adEvent); // adType: 'banner' or 'interstitial'
+        });
+        document.addEventListener('onAdLoaded', function(data){});
+        document.addEventListener('onAdPresent', function(data){});
+        document.addEventListener('onAdLeaveApp', function(data){});
+        document.addEventListener('onAdDismiss', function(data){});
+    }
+    
+    function prepareInterstitial( adtype ) {
+        //var autoshow = document.getElementById('autoshow').checked;
+        
+        var adlocations = document.getElementById('adlocations');
+        var adlocation = adlocations.options[ adlocations.selectedIndex ].value;
+        
+        Chartboost.prepareInterstitial({ adId:adtype + '/' + adlocation, autoShow:true});
+    }
+
+    function onResize(){
+        var s = document.getElementById('sizeinfo');
+        s.innerHTML = "web view: " + window.innerWidth + " x " + window.innerHeight;
+    }
+</script>
+	<div id="fullpage">
+		<p>Demo for Chartboost Plugin</p>
+        
+        Ad Location:
+        <select id='adlocations'>
+            <option value='Startup'>Startup</option>
+            <option value='Home Screen'>Home Screen</option>
+            <option value='Main Menu'>Main Menu</option>
+            <option value='Game Screen'>Game Screen</option>
+            <option value='Achievements'>Achievements</option>
+            <option value='Quests'>Quests</option>
+            <option value='Pause'>Pause</option>
+            <option value='Level Start'>Level Start</option>
+            <option value='Turn Complete'>Turn Complete</option>
+            <option value='IAP Store'>IAP Store</option>
+            <option value='Item Store'>Item Store</option>
+            <option value='Game Over'>Game Over</option>
+            <option value='Leaderboard'>Leaderboard</option>
+            <option value='Settings'>Settings</option>
+            <option value='Quit'>Quit</option>
+            <option value='Default'>Default</option>
+        </select><br/><br/>
+        
+        <button onclick="prepareInterstitial('interstitial');" style="width:100%">Show Interstitial</button><br/><br/>
+        
+        <button onclick="prepareInterstitial('video');" style="width:100%">Show Video</button><br/><br/>
+
+        <button onclick="prepareInterstitial('moreapps');" style="width:100%">Show More Apps</button><br/>
+
+        <div id='sizeinfo'></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "cordova-plugin-chartboost",
+  "version": "0.5.0",
+  "description": "Cordova plugin for Chartboost",
+  "cordova": {
+    "id": "cordova-plugin-chartboost",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/floatinghotpot/cordova-plugin-chartboost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/floatinghotpot/cordova-plugin-chartboost/issues"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "ad",
+    "chartboost",
+    "rjfun"
+  ],
+  "author": {
+    "name": "Liming Xie"
+  },
+  "license": "MIT"
+}
